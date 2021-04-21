@@ -21,5 +21,5 @@ name: superset
 maintainers:
   - name: Han Lin
     email: han.lin@chanzuckerberg.com
-    url: https://github.com/hanxlin/eks-charts
-version: 0.2.0
+    url: https://github.com/chanzuckerberg/helm-charts
+version: 0.2.1
