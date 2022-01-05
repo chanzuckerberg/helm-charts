@@ -1,9 +1,0 @@
-{{- if .Values.metadata.configFile }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: amundsen-metadata-config
-    namespace: {{ .Release.Namespace }}
-data:
-  config.py: {{ .Values.metadata.configFile | quote }}
-{{- end }}

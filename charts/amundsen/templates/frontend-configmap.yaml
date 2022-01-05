@@ -1,9 +1,0 @@
-{{- if .Values.frontEnd.configFile }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: amundsen-frontend-config
-    namespace: {{ .Release.Namespace }}
-data:
-  oidc_config.py: {{ .Values.frontEnd.configFile | quote }}
-{{- end }}
