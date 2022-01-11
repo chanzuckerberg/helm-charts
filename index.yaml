@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
+    created: "2022-01-11T19:33:29.072220449Z"
+    dependencies:
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://charts.helm.sh/stable/
+      version: 1.32.0
+    description: Amundsen is a metadata driven application for improving the productivity
+      of data analysts, data scientists and engineers when interacting with data.
+    digest: dc029b57ad0621b1f915c85c783236c88f8d64103e7a4669128704222f5a34b3
+    home: https://github.com/amundsen-io/amundsen
+    icon: https://github.com/amundsen-io/amundsen/blob/master/docs/img/logos/amundsen_logo_on_light.svg
+    keywords:
+    - metadata
+    - data
+    maintainers:
+    - email: amundsen-tsc@lists.lfai.foundation
+      name: Amundsen TSC
+    name: amundsen
+    sources:
+    - https://github.com/amundsen-io/amundsen
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/amundsen-2.2.0/amundsen-2.2.0.tgz
+    version: 2.2.0
+  - apiVersion: v1
     created: "2021-04-22T11:10:16.85288-07:00"
     dependencies:
     - condition: elasticsearch.enabled
@@ -199,4 +223,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2022-01-11T19:11:16.451125529Z"
+generated: "2022-01-11T19:33:29.07224115Z"
