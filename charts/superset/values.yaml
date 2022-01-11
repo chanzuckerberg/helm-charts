@@ -158,10 +158,12 @@ configMountPath: "/app/pythonpath"
 
 extraConfigMountPath: "/app/configs"
 
+# only tag=latest is available at the moment
+# TODO: should ideally be stamped tag with pullPolicy=IfNotPresent
 image:
   repository: apache/superset
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 
