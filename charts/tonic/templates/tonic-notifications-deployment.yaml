@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tonic-notifications
+  name: tonic-notifications
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tonic-notifications
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: tonic-notifications
+    spec:
+      containers:
+      - env:
+        - name: TONIC_DB_DATABASE
+          value: {{ .Values.tonicdb.dbName }}
+        - name: TONIC_DB_USERNAME
+          value: {{ .Values.tonicdb.user }}
+        - name: TONIC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tonic-db-password
+              key: password
+        - name: TONIC_DB_PORT
+          value: {{quote .Values.tonicdb.port }}
+        - name: TONIC_DB_SSLMODE
+          value: {{ .Values.tonicdb.sslMode }}
+        - name: TONIC_DB_HOST
+          value: {{ .Values.tonicdb.host }}
+        {{- if .Values.tonicSmtpConfig }}
+        {{- if .Values.tonicSmtpConfig.tonicUrl }}
+        - name: TONIC_URL
+          value: {{ .Values.tonicSmtpConfig.tonicUrl }}
+        {{- end}}
+        {{- if .Values.tonicSmtpConfig.sendingAddress }}
+        - name: TONIC_NOTIFICATION_SENDING_ADDRESS
+          value: {{ .Values.tonicSmtpConfig.sendingAddress }}
+        {{- end}}
+        {{- if .Values.tonicSmtpConfig.smtpServerAddress }}
+        - name: TONIC_NOTIFICATION_SMTP_SERVER_ADDRESS
+          value: {{ .Values.tonicSmtpConfig.smtpServerAddress }}
+        {{- end}}
+        {{- if .Values.tonicSmtpConfig.smtpServerPort }}
+        - name: TONIC_NOTIFICATION_SMTP_SERVER_PORT
+          value: {{quote .Values.tonicSmtpConfig.smtpServerPort }}
+        {{- end}}
+        {{- if .Values.tonicSmtpConfig.smtpUsername }}
+        - name: TONIC_NOTIFICATION_SMTP_USERNAME
+          value: {{ .Values.tonicSmtpConfig.smtpUsername }}
+        {{- end}}
+        {{- if .Values.tonicSmtpConfig.smtpPassword }}
+        - name: TONIC_NOTIFICATION_SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tonic-smtp-password
+              key: password
+        {{- end}}
+        {{- end}}
+        - name: ENABLE_LOG_COLLECTION
+          value: {{quote .Values.enableLogCollection }}
+        - name: ENVIRONMENT_NAME
+          value: {{ .Values.environmentName }}
+        - name: TONIC_NOTIFICATIONS_HEALTH_PORT_HTTP
+          value: "7000"
+        - name: TONIC_NOTIFICATIONS_HEALTH_PORT_HTTPS
+          value: "7001"
+        {{- if  ((.Values.tonicai).notifications).image }}
+        image: {{ .Values.tonicai.notifications.image }}:{{ .Values.tonicVersion }}
+        {{ else }}
+        image: quay.io/tonicai/tonic_notifications:{{ .Values.tonicVersion }}
+        {{- end }}
+        imagePullPolicy: Always
+        name: tonic-notifications
+        resources:
+          limits:
+            memory: "1Gi"
+          requests:
+            memory: "512Mi"
+            ephemeral-storage: "1Gi"
+        ports:
+        - containerPort: 7000
+        - containerPort: 7001
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - ps -ef | grep Allos.Notifications.dll | grep -v grep
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - ps -ef | grep Allos.Notifications.dll | grep -v grep
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: tonicai-build-writer-pull-secret
+      serviceAccountName: {{ template "tonic.serviceAccountName" . }}
+      volumes: null
+status: {}
