@@ -223,4 +223,15 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2022-01-11T19:33:29.07224115Z"
+  tonic:
+  - apiVersion: v2
+    appVersion: "130"
+    created: "2022-08-02T21:54:10.42446849Z"
+    description: A Helm chart for Tonic and EKS
+    digest: ae19c607300fc4293d790286814edc3fe03ce6ac76e72f7de6a80e1f5a97bcbb
+    name: tonic
+    type: application
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
+    version: 1.0.2
+generated: "2022-08-02T21:54:10.424492891Z"
