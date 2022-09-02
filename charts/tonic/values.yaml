@@ -118,4 +118,4 @@ tonicai:
 
 # Role used by Tonic to connect to AWS Lambda. This is needed for Snowflake and Redshift integrations.
 # awsLambdaRoleArn: arn:aws:iam::<accountId>:role/<role-name>
-
+# instanceProfileSecretName: <instance-profile-secret>

@@ -17,6 +17,11 @@ spec:
         app: tonic-pii-detection
     spec:
       containers:
+      {{- if .Values.instanceProfileSecretName }}
+      - envFrom:
+        - secretRef:
+          name: {{ .Values.instanceProfileSecretName }}
+      {{- end }}
       - env:
         - name: ENABLE_LOG_COLLECTION
           value: {{quote .Values.enableLogCollection }}
