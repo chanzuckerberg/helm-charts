@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
       {{- if .Values.instanceProfileSecretName }}
-      - envFrom:
-        - secretRef:
+      envFrom:
+      - secretRef:
           name: {{ .Values.instanceProfileSecretName }}
       {{- end }}
       - env:
