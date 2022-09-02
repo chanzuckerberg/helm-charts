@@ -19,11 +19,6 @@ spec:
         app: tonic-oracle-helper
     spec:
       containers:
-      {{- if .Values.instanceProfileSecretName }}
-      envFrom:
-      - secretRef:
-          name: {{ .Values.instanceProfileSecretName }}
-      {{- end }}
       - env:
         - name: ENABLE_LOG_COLLECTION
           value: {{quote .Values.enableLogCollection }}
@@ -32,6 +27,11 @@ spec:
         {{- if  ((.Values.tonicai).oracle_helper).lang }}
         - name: NLS_LANG
           value: {{ .Values.tonicai.oracle_helper.lang }}
+        {{- end }}
+        {{- if .Values.instanceProfileSecretName }}
+        envFrom:
+        - secretRef:
+            name: {{ .Values.instanceProfileSecretName }}
         {{- end }}
         {{- if  ((.Values.tonicai).oracle_helper).image }}
         image: {{ .Values.tonicai.oracle_helper.image }}_{{ .Values.tonicai.oracle_helper.version }}:{{ .Values.tonicVersion }}

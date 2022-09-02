@@ -17,6 +17,14 @@ spec:
         app: tonic-worker
     spec:
       containers:
+<<<<<<< Updated upstream
+      {{- if .Values.instanceProfileSecretName }}
+      - envFrom:
+        - secretRef:
+          name: {{ .Values.instanceProfileSecretName }}
+      {{- end }}
+=======
+>>>>>>> Stashed changes
       - env:
         - name: TONIC_DB_DATABASE
           value: {{ .Values.tonicdb.dbName }}

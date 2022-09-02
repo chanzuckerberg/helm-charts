@@ -17,11 +17,6 @@ spec:
         app: tonic-web-server
     spec:
       containers:
-      {{- if .Values.instanceProfileSecretName }}
-      envFrom:
-      - secretRef:
-          name: {{ .Values.instanceProfileSecretName }}
-      {{- end }}
       - env:
         {{- range $key, $value := .Values.tonicai.web_server.env }}
         - name: {{ $key }}
@@ -123,6 +118,11 @@ spec:
           value: http://tonic-notifications:7000
         - name: TONIC_PYML_URL
           value: https://tonic-pyml-service:7700
+        {{- if .Values.instanceProfileSecretName }}
+        envFrom:
+        - secretRef:
+            name: {{ .Values.instanceProfileSecretName }}
+        {{- end }}
         {{- if  ((.Values.tonicai).web_server).image }}
         image: {{ .Values.tonicai.web_server.image }}:{{ .Values.tonicVersion }}
         {{ else }}

@@ -17,16 +17,16 @@ spec:
         app: tonic-pyml-service
     spec:
       containers:
-      {{- if .Values.instanceProfileSecretName }}
-      envFrom:
-      - secretRef:
-          name: {{ .Values.instanceProfileSecretName }}
-      {{- end }}
       - env:
         - name: ENABLE_LOG_COLLECTION
           value: {{quote .Values.enableLogCollection }}
         - name: ENVIRONMENT_NAME
           value: {{ .Values.environmentName }}
+        {{- if .Values.instanceProfileSecretName }}
+        envFrom:
+        - secretRef:
+            name: {{ .Values.instanceProfileSecretName }}
+        {{- end }}
         {{- if  ((.Values.tonicai).pyml_service).image }}
         image: {{ .Values.tonicai.pyml_service.image }}:{{ .Values.tonicVersion }}
         {{ else }}
