@@ -17,6 +17,11 @@ spec:
         app: tonic-web-server
     spec:
       containers:
+      {{- if .Values.instanceProfileSecretName }}
+      - envFrom:
+        - secretRef:
+          name: {{ .Values.instanceProfileSecretName }}
+      {{- end }}
       - env:
         {{- range $key, $value := .Values.tonicai.web_server.env }}
         - name: {{ $key }}

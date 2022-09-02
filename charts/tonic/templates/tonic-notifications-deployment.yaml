@@ -17,6 +17,11 @@ spec:
         app: tonic-notifications
     spec:
       containers:
+      {{- if .Values.instanceProfileSecretName }}
+      - envFrom:
+        - secretRef:
+          name: {{ .Values.instanceProfileSecretName }}
+      {{- end }}
       - env:
         - name: TONIC_DB_DATABASE
           value: {{ .Values.tonicdb.dbName }}
