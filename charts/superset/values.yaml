@@ -175,7 +175,7 @@ extraConfigMountPath: "/app/configs"
 image:
   repository: apache/superset
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 
@@ -338,7 +338,7 @@ supersetWorker:
 ## Superset beat configuration (to trigger scheduled jobs like reports)
 supersetCeleryBeat:
   # This is only required if you intend to use alerts and reports
-  enabled: false
+  enabled: true
   command:
     - "/bin/sh"
     - "-c"
