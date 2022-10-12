@@ -249,6 +249,16 @@ entries:
   tonic:
   - apiVersion: v2
     appVersion: "130"
+    created: "2022-10-12T18:03:29.534167221Z"
+    description: A Helm chart for Tonic and EKS
+    digest: 21930a1e6c622306a71d81d839b9e0e3c8c7ab70eca14516264ab0dc33692e94
+    name: tonic
+    type: application
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.7/tonic-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    appVersion: "130"
     created: "2022-09-02T14:02:10.447414991Z"
     description: A Helm chart for Tonic and EKS
     digest: efdf34c478a53b84adfd5631df871f1ce6c558f481278aa7c3cd40f008845181
@@ -297,4 +307,4 @@ entries:
     urls:
     - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
     version: 1.0.2
-generated: "2022-09-27T23:16:45.647528101Z"
+generated: "2022-10-12T18:03:29.534216424Z"
