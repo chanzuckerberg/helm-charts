@@ -41,10 +41,7 @@ tonicai:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_web_server
     # Comma separated list of user emails that should be have the Admin role in Tonic.
     administrators: example@email.com,other@email.com
-    annotations:
-      # This annotation is only required if you are creating an internal facing ELB. Remove this annotation to create public facing ELB.
-      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    annotations: {}
     features:
       # Enables/Disables the HostIntegrations endpoint
       host_integration_enabled: "true" 
