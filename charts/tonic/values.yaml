@@ -50,12 +50,16 @@ tonicai:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_worker
     env: {}
     envRaw: {}
+    annotations: {}
   notifications:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_notifications
+    annotations: {}
   pii_detection:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_pii_detection
+    annotations: {}
   pyml_service:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_pyml_service
+    annotations: {}
 # Uncomment for Oracle Support. Valid versions are "19", "12_2", and "11_2".
 # oracle_helper:
 #   image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_oracle_helper
