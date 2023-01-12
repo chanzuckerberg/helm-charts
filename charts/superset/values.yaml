@@ -269,13 +269,13 @@ supersetNode:
   podLabels: {}
   livenessProbe:
     initialDelaySeconds: 15
-    timeoutSeconds: 1
+    timeoutSeconds: 10
     failureThreshold: 3
     periodSeconds: 15
     successThreshold: 1
   readinessProbe:
     initialDelaySeconds: 15
-    timeoutSeconds: 1
+    timeoutSeconds: 10
     failureThreshold: 3
     periodSeconds: 15
     successThreshold: 1
