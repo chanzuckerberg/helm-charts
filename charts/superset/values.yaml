@@ -217,11 +217,11 @@ resources:
   # The limits below will apply to all Superset components. To set individual resource limitations refer to the pod specific values below.
   # The pod specific values will overwrite anything that is set here.
   limits:
-    cpu: 1.0
-    memory: 1Gi
+    cpu: 2.0
+    memory: 2Gi
   requests:
-    cpu: 1.0
-    memory: 1Gi
+    cpu: 2.0
+    memory: 2Gi
 
 ##
 ## Custom hostAliases for all superset pods
