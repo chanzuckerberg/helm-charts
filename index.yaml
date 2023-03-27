@@ -87,6 +87,29 @@ entries:
   superset:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2023-03-27T19:00:33.296556548Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.6
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.3.17
+    description: Apache Superset is a modern, enterprise-ready business intelligence
+      web application
+    digest: 738c0323570dcd841293f641399675a06e1cf7bdb1eb47030b92a86980710862
+    maintainers:
+    - email: adoami@chanzuckerberg.com
+      name: Allison Doami
+      url: https://github.com/chanzuckerberg/helm-charts
+    name: superset
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.12.0/superset-0.12.0.tgz
+    version: 0.12.0
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2023-02-17T05:51:42.755426911Z"
     dependencies:
     - condition: postgresql.enabled
@@ -455,4 +478,4 @@ entries:
     urls:
     - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
     version: 1.0.2
-generated: "2023-02-17T05:51:42.755518613Z"
+generated: "2023-03-27T19:00:33.296870656Z"
