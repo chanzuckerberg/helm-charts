@@ -22,7 +22,7 @@ maintainers:
   - name: Allison Doami
     email: adoami@chanzuckerberg.com
     url: https://github.com/chanzuckerberg/helm-charts
-version: 0.12.1
+version: 0.13.0
 dependencies:
   - name: postgresql
     version: 12.1.6
