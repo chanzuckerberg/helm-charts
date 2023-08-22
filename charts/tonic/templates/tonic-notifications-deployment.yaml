@@ -120,4 +120,6 @@ spec:
       - name: tonicai-build-writer-pull-secret
       serviceAccountName: {{ template "tonic.serviceAccountName" . }}
       volumes: null
+      nodeSelector:
+        kubernetes.io/arch: amd64
 status: {}
