@@ -131,4 +131,6 @@ spec:
       imagePullSecrets:
       - name: tonicai-build-writer-pull-secret
       serviceAccountName: {{ template "tonic.serviceAccountName" . }}
+      nodeSelector:
+        kubernetes.io/arch: amd64
 status: {}

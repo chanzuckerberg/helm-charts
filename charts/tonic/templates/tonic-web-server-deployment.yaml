@@ -168,4 +168,6 @@ spec:
       imagePullSecrets:
       - name: tonicai-build-writer-pull-secret
       volumes: null
+      nodeSelector:
+        kubernetes.io/arch: amd64
 status: {}
