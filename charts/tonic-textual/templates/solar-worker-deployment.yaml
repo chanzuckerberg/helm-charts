@@ -150,4 +150,6 @@ spec:
           emptyDir: { }
         - name: tmp
           emptyDir: {}
+      nodeSelector:
+        kubernetes.io/arch: amd64
 status: {}
