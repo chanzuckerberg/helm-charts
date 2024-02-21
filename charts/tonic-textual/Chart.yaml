@@ -1,8 +1,8 @@
 apiVersion: v2
 name: solar
-description: A Helm chart for Solar
+description: A Helm chart for Solar (Tonic Textual)
 type: application
 
-version: "1.0.0"
+version: "1.0.1"
 
 appVersion: "8"
