@@ -30,8 +30,8 @@ solar_api_server:
     # GCP: https://cloud.google.com/kubernetes-engine/docs/concepts/service-load-balancer
   ports:
     httpsOnly: true
-    https: 443
-    http: 80
+    https: 8443
+    http: 8080
 solar_worker:
   # numberOfWorkers will determine how many worker containers are deployed when installing the helm chart.
   numberOfWorkers: 1
