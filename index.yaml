@@ -87,6 +87,16 @@ entries:
   solar:
   - apiVersion: v2
     appVersion: "8"
+    created: "2024-02-22T19:30:36.133797743Z"
+    description: A Helm chart for Solar (Tonic Textual)
+    digest: e98b138ed69b695e1c3b960e488cbf46bddddc8dcfc9f48fc891d76af953947d
+    name: solar
+    type: application
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/solar-1.0.2/solar-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: "8"
     created: "2024-02-21T22:43:20.548307015Z"
     description: A Helm chart for Solar (Tonic Textual)
     digest: 60c95aec7cbe915a959ecfc0fd6fe2fdc5186b2887203b85c90fca957573e1d0
@@ -575,4 +585,4 @@ entries:
     urls:
     - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
     version: 1.0.2
-generated: "2024-02-21T22:43:20.548375534Z"
+generated: "2024-02-22T19:30:36.133959244Z"
