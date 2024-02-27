@@ -8,9 +8,11 @@ metadata:
 spec:
   selector:
     app: textual-worker
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
   ports:
     - port: 8843
 status:
-      nodeSelector:
-        kubernetes.io/arch: amd64
   loadBalancer: {}
