@@ -1,18 +1,159 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: textual-worker
   name: textual-worker
   namespace: {{ .Release.Namespace }}
 spec:
+  replicas: {{ (.Values.textual_worker).numberOfWorkers | default 1 }}
   selector:
-    app: textual-worker
+    matchLabels:
+      app: textual-worker
+  strategy:
+    type: {{ .Values.deployStrategy | quote | default "Recreate" }}
+  revisionHistoryLimit: 1
   template:
+    metadata:
+      labels:
+        app: textual-worker
     spec:
+      containers:
+        - securityContext:
+            readOnlyRootFilesystem: true
+          volumeMounts:
+          - name: var-logs-public
+            mountPath: /usr/bin/textual/logs_public
+          - name: var-logs
+            mountPath: /usr/bin/textual/logs
+          - name: vector-configuration
+            mountPath: /usr/bin/textual/vector_config
+          - name: tmp
+            mountPath: /tmp
+          env:
+            - name: SOLAR_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: textual-encryption-secret
+                  key: secret
+            - name: SOLAR_DB_DATABASE
+              value: {{ .Values.textualDatabase.dbName }}
+            - name: SOLAR_DB_USERNAME
+              value: {{ .Values.textualDatabase.user }}
+            - name: SOLAR_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: textual-db-password
+                  key: password
+            - name: SOLAR_DB_PORT
+              value: {{quote .Values.textualDatabase.port }}
+            - name: SOLAR_DB_SSLMODE
+              value: {{ .Values.textualDatabase.sslMode }}
+            - name: SOLAR_DB_HOST
+              value: {{ .Values.textualDatabase.host }}
+            - name: ENVIRONMENT_NAME
+              value: {{ .Values.environmentName }}
+            - name: SOLAR_PYML_URL
+              value: https://textual-ml:7701
+            - name: SOLAR_WEB_URL
+              value: https://textual-api-server
+            - name: SOLAR_HTTPS_ONLY
+              value: "true"
+            - name: SOLAR_PY_URL
+              value: https://textual-ml:7701
+            - name: SOLAR_WORKER_HEALTH_PORT_HTTPS
+              value: "8443"
+            {{- if .Values.enableLogCollection }}
+            - name: ENABLE_LOG_COLLECTION
+              value: {{ .Values.enableLogCollection }}
+            {{- end }}
+            {{- if .Values.azureDocIntelligenceKey }}
+            - name: SOLAR_AZURE_DOC_INTELLIGENCE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: azure-document-intelligence-key-secret
+                  key: secret
+            {{- end }}
+            {{- if .Values.azureDocIntelligenceEndpoint }}
+            - name: SOLAR_AZURE_DOC_INTELLIGENCE_ENDPOINT
+              value: {{ .Values.azureDocIntelligenceEndpoint }}
+            {{- end }}
+            {{- if (.Values.textual_worker).env}}
+            {{- range $key, $value := .Values.textual_worker.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+          {{- if (.Values.textual_worker).image }}
+          image: {{ .Values.textual_worker.image }}:{{ .Values.textualVersion }}
+          {{ else }}
+          image: quay.io/tonicai/textual-worker:{{ .Values.textualVersion }}
+          {{- end }}
+          imagePullPolicy: IfNotPresent
+          name: textual-worker
+          ports:
+            - containerPort: 8443
+          resources:
+            limits:
+              memory: "12Gi"
+            requests:
+              memory: "6Gi"
+              ephemeral-storage: "1Gi"
+          startupProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /health
+              port: 8443
+            initialDelaySeconds: 5
+            periodSeconds: 60
+            timeoutSeconds: 30
+            failureThreshold: 5
+        - name: vector
+          image: timberio/vector:latest-alpine
+          env:
+            - name: VECTOR_SELF_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: VECTOR_SELF_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: VECTOR_SELF_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: LOG_COLLECTION_FOLDER
+              value: "/usr/bin/textual/logs_public"
+          volumeMounts:
+            - name: var-logs-public
+              mountPath: "/usr/bin/textual/logs_public"
+            - name: vector-configuration
+              mountPath: "/usr/bin/textual/vector_config"
+            - name: vector-working
+              mountPath: "/etc/textual/vector_data"
+          args:
+            - "-w"
+            - "--config"
+            - "/usr/bin/textual/vector_config/vector.toml"
+      restartPolicy: Always
+      serviceAccountName: {{ template "textual.serviceAccountName" . }}
+      imagePullSecrets:
+      - name: textual-image-pull-secret
+      volumes:
+        - name: var-logs-public
+          emptyDir: {}
+        - name: var-logs
+          emptyDir: {}
+        - name: vector-configuration
+          emptyDir: {}
+        - name: vector-working
+          emptyDir: { }
+        - name: tmp
+          emptyDir: {}
       nodeSelector:
         kubernetes.io/arch: amd64
-  ports:
-    - port: 8843
-status:
-  loadBalancer: {}
+status: {}
