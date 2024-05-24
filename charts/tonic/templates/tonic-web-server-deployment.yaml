@@ -132,6 +132,24 @@ spec:
           value: {{ $httpsPort | quote }}
         - name: TONIC_HTTPS_ONLY
           value: {{ $httpsOnly | quote }}
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: instance-profile-secret
+              key: TONIC_AWS_ACCESS_KEY_ID
+              optional: false
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: instance-profile-secret
+              key: TONIC_AWS_SECRET_ACCESS_KEY
+              optional: false
+        - name: AWS_REGION
+            valueFrom:
+            secretKeyRef:
+              name: instance-profile-secret
+              key: TONIC_AWS_REGION
+              optional: false
         image: {{ $image }}:{{ .Values.tonicVersion | default "latest" }}
         imagePullPolicy: Always
         name: tonic-web-server
