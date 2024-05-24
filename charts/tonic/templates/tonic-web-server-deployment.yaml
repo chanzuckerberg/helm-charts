@@ -145,7 +145,7 @@ spec:
               key: TONIC_AWS_SECRET_ACCESS_KEY
               optional: false
         - name: AWS_REGION
-            valueFrom:
+          valueFrom:
             secretKeyRef:
               name: instance-profile-secret
               key: TONIC_AWS_REGION

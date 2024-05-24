@@ -3,6 +3,6 @@ name: tonic
 description: A Helm chart for Tonic and EKS
 type: application
 
-version: "2.1.1"
+version: "2.1.2"
 
 appVersion: "130"
