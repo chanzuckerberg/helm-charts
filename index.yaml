@@ -487,6 +487,16 @@ entries:
   textual:
   - apiVersion: v2
     appVersion: "8"
+    created: "2024-05-29T16:52:30.337357377Z"
+    description: A Helm chart for Textual
+    digest: fa0625e013fd0c946eaa658f1149b119ce0d502adb5c26919b808b9bdf101386
+    name: textual
+    type: application
+    urls:
+    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.2.0/textual-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: "8"
     created: "2024-03-04T21:13:55.21041848Z"
     description: A Helm chart for Textual
     digest: 42acd1a3ff393c9829252a9c6701a87ea9c60df9095d6c2f08c663c80791188d
@@ -656,4 +666,4 @@ entries:
     urls:
     - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
     version: 1.0.2
-generated: "2024-05-24T22:53:13.564090005Z"
+generated: "2024-05-29T16:52:30.337467142Z"
