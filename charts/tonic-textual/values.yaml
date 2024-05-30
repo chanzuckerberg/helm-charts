@@ -30,14 +30,35 @@ textual_api_server:
     httpsOnly: true
     https: 8443
     http: 8080
+  # supported values are LoadBalancer, ClusterIP and NodePort. LoadBalancer is
+  # the default if this isn't provided
+  service_type: "LoadBalancer"
 textual_worker:
   # numberOfWorkers will determine how many worker containers are deployed when installing the helm chart.
   numberOfWorkers: 1
   env: {}
 textual_ml:
+  # useGPU will determine if the ML container will use a GPU or not. If not provided, the default value is false
+  useGpu: false
+  # numberOfMlWorkers will determine how many ML containers are deployed when installing the helm chart. If using GPU, we recommend one per GPU
+  numberOfMlWorkers: 1
+  # textualMlParallelism will determine how many ML worker processes are deployed per ML container. For GPUs, we recommend 1 process per 5GB of VRAM
+  textualMlParallelism: 1
   env: {}
 
-  #use_ingress: true
+
+ingress:
+  enabled: false
+  class: nginx
+  host: null
+  labels: {}
+#  tls:
+#    - hosts:
+#        - <textual-url>
+#      secretName: <secret-name>
+  # By default this chart will create an nginx ingress, however providing
+  # additional annotations will disable this
+  #  annotations: {}
 
 # This value will be provided to you by Solar and will allow you to authenticate against our private docker repository.
 dockerConfigAuth: <docker-config-auth>
@@ -47,6 +68,11 @@ serviceAccount:
   create: true
   annotations: {}
   name: textual
+
+solarStatisticsSeed: <any-integer>
+
+# Optional, required when using using llm synthesis
+openAiApiKey: <open-ai-api-key>
 
 # OCR Credentials
 #azureDocIntelligenceKey: <key>

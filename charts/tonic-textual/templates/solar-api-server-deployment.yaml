@@ -30,10 +30,14 @@ spec:
             mountPath: /usr/bin/textual/logs_public
           - name: var-logs
             mountPath: /usr/bin/textual/logs
+          {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
           - name: vector-configuration
             mountPath: /usr/bin/textual/vector_config
+          {{- end }}
           - name: tmp
             mountPath: /tmp
+          - name: dotnet
+            mountPath: /.dotnet
           env:
           {{- if (.Values.textual_api_server).env}}
           {{- range $key, $value := .Values.textual_api_server.env }}
@@ -63,6 +67,17 @@ spec:
             value: {{ .Values.textualDatabase.host }}
           - name: ENVIRONMENT_NAME
             value: {{ .Values.environmentName }}
+          {{- if .Values.solarStatisticsSeed }}
+          - name: SOLAR_STATISTICS_SEED
+            value: {{quote .Values.solarStatisticsSeed }}
+          {{- end }}
+          {{- if .Values.openAiApiKey }}
+          - name: OPENAI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: openai-api-key
+                key: secret
+          {{- end }}
           {{- if .Values.googleClientId }}
           - name: SOLAR_SSO_GOOGLE_CLIENT_ID
             value: {{ .Values.googleClientId }}
@@ -116,7 +131,7 @@ spec:
                 name: azure-sso-client-secret
                 key: secret
           {{- end }}
-          {{- if .Values.enableLogCollection }}
+          {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
           - name: ENABLE_LOG_COLLECTION
             value: {{ .Values.enableLogCollection }}
           {{- end }}
@@ -159,8 +174,9 @@ spec:
             periodSeconds: 60
             timeoutSeconds: 30
             failureThreshold: 5
+        {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
         - name: vector
-          image: timberio/vector:latest-alpine
+          image: timberio/vector:latest-distroless-static
           env:
             - name: VECTOR_SELF_NODE_NAME
               valueFrom:
@@ -190,6 +206,7 @@ spec:
             - "-w"
             - "--config"
             - "/usr/bin/textual/vector_config/vector.toml"
+        {{- end }}
       restartPolicy: Always
       serviceAccountName: {{ template "textual.serviceAccountName" . }}
       imagePullSecrets:
@@ -199,11 +216,15 @@ spec:
         emptyDir: {}
       - name: var-logs
         emptyDir: {}
+      {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
       - name: vector-configuration
         emptyDir: {}
       - name: vector-working
         emptyDir: {}
+      {{- end }}
       - name: tmp
+        emptyDir: {}
+      - name: dotnet
         emptyDir: {}
       nodeSelector:
         kubernetes.io/arch: amd64
