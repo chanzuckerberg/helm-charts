@@ -18,6 +18,10 @@ spec:
       labels:
         app: textual-worker
     spec:
+      initContainers:
+        - name: wait-for-web-before-startup
+          image: busybox
+          command: [ "sh", "-c", "until nc -z textual-api-server 443 > /dev/null; do echo Waiting for web server.; sleep 2; done;" ]
       containers:
         - securityContext:
             readOnlyRootFilesystem: true
@@ -26,10 +30,14 @@ spec:
             mountPath: /usr/bin/textual/logs_public
           - name: var-logs
             mountPath: /usr/bin/textual/logs
+          {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
           - name: vector-configuration
             mountPath: /usr/bin/textual/vector_config
+          {{- end }}
           - name: tmp
             mountPath: /tmp
+          - name: dotnet
+            mountPath: /.dotnet
           env:
             - name: SOLAR_SECRET
               valueFrom:
@@ -63,7 +71,11 @@ spec:
               value: https://textual-ml:7701
             - name: SOLAR_WORKER_HEALTH_PORT_HTTPS
               value: "8443"
-            {{- if .Values.enableLogCollection }}
+            {{- if .Values.solarStatisticsSeed }}
+            - name: SOLAR_STATISTICS_SEED
+              value: {{quote .Values.solarStatisticsSeed }}
+            {{- end }}
+            {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
             - name: ENABLE_LOG_COLLECTION
               value: {{ .Values.enableLogCollection }}
             {{- end }}
@@ -77,6 +89,13 @@ spec:
             {{- if .Values.azureDocIntelligenceEndpoint }}
             - name: SOLAR_AZURE_DOC_INTELLIGENCE_ENDPOINT
               value: {{ .Values.azureDocIntelligenceEndpoint }}
+            {{- end }}
+            {{- if .Values.openAiApiKey }}
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-api-key
+                  key: secret
             {{- end }}
             {{- if (.Values.textual_worker).env}}
             {{- range $key, $value := .Values.textual_worker.env }}
@@ -108,8 +127,9 @@ spec:
             periodSeconds: 60
             timeoutSeconds: 30
             failureThreshold: 5
+        {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
         - name: vector
-          image: timberio/vector:latest-alpine
+          image: timberio/vector:latest-distroless-static
           env:
             - name: VECTOR_SELF_NODE_NAME
               valueFrom:
@@ -139,6 +159,7 @@ spec:
             - "-w"
             - "--config"
             - "/usr/bin/textual/vector_config/vector.toml"
+        {{- end }}
       restartPolicy: Always
       serviceAccountName: {{ template "textual.serviceAccountName" . }}
       imagePullSecrets:
@@ -148,11 +169,15 @@ spec:
           emptyDir: {}
         - name: var-logs
           emptyDir: {}
+        {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
         - name: vector-configuration
           emptyDir: {}
         - name: vector-working
           emptyDir: { }
+        {{- end }}
         - name: tmp
+          emptyDir: {}
+        - name: dotnet
           emptyDir: {}
       nodeSelector:
         kubernetes.io/arch: amd64

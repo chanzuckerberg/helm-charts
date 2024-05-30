@@ -6,7 +6,7 @@ metadata:
   labels:
     app: textual-ml
 spec:
-  replicas: 1
+  replicas: {{ (.Values.textual_ml).numberOfMlWorkers | default 1 }}
   selector:
     matchLabels:
       app: textual-ml
@@ -18,6 +18,10 @@ spec:
       labels:
         app: textual-ml
     spec:
+      initContainers:
+        - name: wait-for-web-before-startup
+          image: busybox
+          command: [ "sh", "-c", "until nc -z textual-api-server 443 > /dev/null; do echo Waiting for web server.; sleep 2; done;" ]
       containers:
       - securityContext:
           readOnlyRootFilesystem: true
@@ -26,8 +30,10 @@ spec:
             mountPath: /usr/bin/textual/logs_public
           - name: var-logs
             mountPath: /usr/bin/textual/logs
+          {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
           - name: vector-configuration
             mountPath: /usr/bin/textual/vector_config
+          {{- end }}
           - name: supervisor-run
             mountPath: /var/log/supervisor
           - name: supervisor-log
@@ -52,9 +58,13 @@ spec:
             value: {{ .Values.textualDatabase.sslMode }}
           - name: SOLAR_DB_HOST
             value: {{ .Values.textualDatabase.host }}
-        {{- if .Values.enableLogCollection }}
+        {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
           - name: ENABLE_LOG_COLLECTION
             value: {{ .Values.enableLogCollection }}
+        {{- end }}
+        {{- if (.Values.textual_ml).textualMlParallelism | quote }}
+          - name: TEXTUAL_ML_WORKERS
+            value: {{quote .Values.textual_ml.textualMlParallelism }}
         {{- end }}
         {{- if (.Values.textual_ml).env }}
         {{- range $key, $value := .Values.textual_ml.env }}
@@ -64,10 +74,14 @@ spec:
         {{- end }}
           - name: ENVIRONMENT_NAME
             value: {{ .Values.environmentName }}
+        {{- if (.Values.textual_ml).useGpu }}
+        image: quay.io/tonicai/textual-ml-gpu:{{ .Values.textualVersion }}
+        {{- else }}
         {{- if  (.Values.textual_ml).image }}
         image: {{ .Values.textual_ml.image }}:{{ .Values.textualVersion }}
         {{ else }}
         image: quay.io/tonicai/textual-ml:{{ .Values.textualVersion }}
+        {{- end }}
         {{- end }}
         imagePullPolicy: IfNotPresent
         name: textual-ml
@@ -76,6 +90,9 @@ spec:
         resources:
           limits:
             memory: "8Gi"
+            {{- if (.Values.textual_ml).useGpu }}
+            nvidia.com/gpu: "1"
+            {{- end }}
           requests:
             memory: "1Gi"
             ephemeral-storage: "1Gi"
@@ -88,8 +105,9 @@ spec:
           periodSeconds: 60
           timeoutSeconds: 30
           failureThreshold: 5
+      {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
       - name: vector
-        image: timberio/vector:latest-alpine
+        image: timberio/vector:latest-distroless-static
         env:
           - name: VECTOR_SELF_NODE_NAME
             valueFrom:
@@ -119,6 +137,7 @@ spec:
           - "-w"
           - "--config"
           - "/usr/bin/textual/vector_config/vector.toml"
+      {{- end }}
       restartPolicy: Always
       imagePullSecrets:
         - name: textual-image-pull-secret
@@ -128,10 +147,12 @@ spec:
           emptyDir: {}
         - name: var-logs
           emptyDir: {}
+        {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
         - name: vector-configuration
           emptyDir: {}
         - name: vector-working
           emptyDir: {}
+        {{- end }}
         - name: supervisor-run
           emptyDir: {}
         - name: supervisor-log
