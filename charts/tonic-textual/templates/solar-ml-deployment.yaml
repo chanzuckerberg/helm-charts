@@ -164,4 +164,3 @@ spec:
       nodeSelector:
         kubernetes.io/arch: amd64
         tonic/gpu: "true"
-        nvidia.com/gpu: "true"
