@@ -54,7 +54,7 @@ tonicai:
     resources:
       requests:
         memory: "6Gi"
-        ephemeral-storage: "1Gi"
+        ephemeral-storage: "2Gi"
       limits:
         memory: "24Gi"
   notifications:
