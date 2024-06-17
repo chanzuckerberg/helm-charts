@@ -51,6 +51,12 @@ tonicai:
     env: {}
     envRaw: {}
     annotations: {}
+    resources:
+      requests:
+        memory: "6Gi"
+        ephemeral-storage: "1Gi"
+      limits:
+        memory: "24Gi"
   notifications:
     image: 626314663667.dkr.ecr.us-west-2.amazonaws.com/tonic_notifications
     annotations: {}
