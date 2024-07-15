@@ -1,3 +1,9 @@
+{{- $tolerations :=
+  .Values.textual_worker.tolerations
+ }}
+{{- $resources := coalesce
+  .Values.textual_worker.resources
+  (dict "limits" (dict "memory" "12Gi") "requests" (dict "memory" "6Gi" "ephemeral-storage" "1Gi")) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,6 +24,10 @@ spec:
       labels:
         app: textual-worker
     spec:
+      nodeSelector:
+        {{- toYaml $.Values.textual_worker.nodeSelector | nindent 8}}
+      tolerations:
+        {{- include "textual.tolerations" (list $ $tolerations) | nindent 8 }}
       initContainers:
         - name: wait-for-web-before-startup
           image: busybox
@@ -113,11 +123,7 @@ spec:
           ports:
             - containerPort: 8443
           resources:
-            limits:
-              memory: "12Gi"
-            requests:
-              memory: "6Gi"
-              ephemeral-storage: "1Gi"
+            {{- toYaml $resources | nindent 12 }}
           startupProbe:
             httpGet:
               scheme: HTTPS
@@ -128,37 +134,7 @@ spec:
             timeoutSeconds: 30
             failureThreshold: 5
         {{- if or .Values.enableLogCollection (not (hasKey .Values "enableLogCollection")) }}
-        - name: vector
-          image: timberio/vector:latest-distroless-static
-          env:
-            - name: VECTOR_SELF_NODE_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: spec.nodeName
-            - name: VECTOR_SELF_POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-            - name: VECTOR_SELF_POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: LOG_COLLECTION_FOLDER
-              value: "/usr/bin/textual/logs_public"
-          volumeMounts:
-            - name: var-logs-public
-              mountPath: "/usr/bin/textual/logs_public"
-            - name: vector-configuration
-              mountPath: "/usr/bin/textual/vector_config"
-            - name: vector-working
-              mountPath: "/etc/textual/vector_data"
-          args:
-            - "-w"
-            - "--config"
-            - "/usr/bin/textual/vector_config/vector.toml"
+        {{- include "textual.loggingSidecar" (list $ "var-logs-public") | nindent 8 }}
         {{- end }}
       restartPolicy: Always
       serviceAccountName: {{ template "textual.serviceAccountName" . }}
@@ -179,6 +155,4 @@ spec:
           emptyDir: {}
         - name: dotnet
           emptyDir: {}
-      nodeSelector:
-        kubernetes.io/arch: amd64
 status: {}

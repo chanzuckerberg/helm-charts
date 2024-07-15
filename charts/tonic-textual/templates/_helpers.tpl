@@ -64,3 +64,78 @@ Create the name of the service account to use
     {{ "" }}
 {{- end -}}
 {{- end }}
+
+{{/*
+Creates the log sharing sidecar container
+*/}}
+{{- define "textual.loggingSidecar" -}}
+{{- $root := first . }}
+{{- $values := $root.Values }}
+{{- $logVolume := index . 1 }}
+{{- $logDir := "/usr/bin/textual/logs_public" }}
+{{- $env := ($values.log_collector).env }}
+- name: vector
+  image: quay.io/tonicai/log_collector
+  imagePullPolicy: Always
+  env:
+    - name: VECTOR_SELF_NODE_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: spec.nodeName
+    - name: VECTOR_SELF_POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: VECTOR_SELF_POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: LOG_COLLECTION_FOLDER
+      value: "{{ $logDir }}"
+    - name: ENABLE_LOG_COLLECTION
+      value: "true"
+    {{- range $key, $value := $env }}
+    - name: {{ $key }}
+      value: {{ $value | quote }}
+    {{- end }}
+  volumeMounts:
+    - name: {{ $logVolume }}
+      mountPath: "{{ $logDir }}"
+{{- end }}
+
+{{/*
+Tolerances
+*/}}
+{{- define "textual.tolerations" -}}
+{{- $top := first . }}
+{{- $tolerations := list }}
+{{- if ($top.Values).tolerations }}
+{{- $tolerations = concat $tolerations $top.Values.tolerations }}
+{{- end }}
+{{- if (gt (len .) 1) }}
+{{- $these := (index . 1) }}
+{{- if $these }}
+{{- $tolerations = concat $tolerations $these }}
+{{- end }}
+{{- end }}
+{{- if $tolerations }}
+{{- toYaml $tolerations }}
+{{- end }}
+{{- end }}
+
+{{- define "textual.nodeSelector" -}}
+{{- $top := first . }}
+{{- $selectors := dict }}
+{{- if ($top.Values).nodeSelector }}
+{{- $selectors = merge $selectors $top.Values.nodeSelector }}
+{{- if (gt (len .) 1) }}
+{{- $selectors = merge $selectors (index . 1) }}
+{{- end }}
+{{- if $selectors }}
+{{- $selectors | toYaml }}
+{{- end }}
+{{- end }}
+{{- end }}
