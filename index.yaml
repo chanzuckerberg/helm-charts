@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
-    created: "2021-04-22T11:10:16.85288-07:00"
+    created: "2025-09-12T11:36:09.719488-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -26,7 +26,7 @@ entries:
     - amundsen-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2021-04-22T11:10:16.850112-07:00"
+    created: "2025-09-12T11:36:09.717674-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -52,7 +52,7 @@ entries:
   aws-calico:
   - apiVersion: v1
     appVersion: 3.13.4
-    created: "2021-04-22T11:10:16.854513-07:00"
+    created: "2025-09-12T11:36:09.720016-07:00"
     description: A Helm chart for installing Calico on AWS
     digest: 50be5204421f4a925bb692f7f2e2662a1d318f422e30b76fa1563207e031a572
     icon: https://www.projectcalico.org/wp-content/uploads/2019/09/Calico_Logo_Large_Calico.png
@@ -60,10 +60,68 @@ entries:
     urls:
     - aws-calico-0.3.2.tgz
     version: 0.3.2
+  postgresql:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 15.1.0
+    created: "2025-09-12T11:36:09.725593-07:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: PostgreSQL (Postgres) is an open source object-relational database
+      known for reliability and data integrity. ACID-compliant, it supports foreign
+      keys, joins, views, triggers and stored procedures.
+    digest: 1a2deb66d7daffaef0ce8b26489f3f901d3e6823e2b94cc5c1839d5f266e2ca3
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - name: Bitnami
+      url: https://github.com/bitnami/charts
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
+    - https://www.postgresql.org/
+    urls:
+    - postgresql-12.1.6.tgz
+    version: 12.1.6
   superset:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-12T11:36:09.736887-07:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://chanzuckerberg.github.io/helm-charts
+      version: 12.1.6
+    - condition: redis.enabled
+      name: redis
+      repository: https://chanzuckerberg.github.io/helm-charts
+      version: 17.3.17
+    description: Apache Superset is a modern, enterprise-ready business intelligence
+      web application
+    digest: 1ca7c7be4b31180b7a2c8c0b7557dea4f116d87f81d0351281b0d8c93b85d056
+    maintainers:
+    - email: data-infra-eng@chanzuckerberg.com
+      name: CZI Central Technology, Data Infrastructure
+      url: https://github.com/chanzuckerberg/helm-charts
+    name: superset
+    urls:
+    - superset-0.13.0.tgz
+    version: 0.13.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.870002-07:00"
+    created: "2025-09-12T11:36:09.751031-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -86,7 +144,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.865285-07:00"
+    created: "2025-09-12T11:36:09.74652-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -109,7 +167,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.860146-07:00"
+    created: "2025-09-12T11:36:09.740957-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -130,4 +188,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-12T11:33:28.597124-07:00"
+generated: "2025-09-12T11:36:09.711039-07:00"
