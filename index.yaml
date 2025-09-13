@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
-    created: "2025-09-12T18:10:11.327023-07:00"
+    created: "2025-09-12T18:31:40.844556-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -26,7 +26,7 @@ entries:
     - amundsen-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2025-09-12T18:10:11.324881-07:00"
+    created: "2025-09-12T18:31:40.8425-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -52,7 +52,7 @@ entries:
   aws-calico:
   - apiVersion: v1
     appVersion: 3.13.4
-    created: "2025-09-12T18:10:11.327557-07:00"
+    created: "2025-09-12T18:31:40.845216-07:00"
     description: A Helm chart for installing Calico on AWS
     digest: 50be5204421f4a925bb692f7f2e2662a1d318f422e30b76fa1563207e031a572
     icon: https://www.projectcalico.org/wp-content/uploads/2019/09/Calico_Logo_Large_Calico.png
@@ -65,7 +65,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 15.1.0
-    created: "2025-09-12T18:10:11.33429-07:00"
+    created: "2025-09-12T18:31:40.852269-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -100,7 +100,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 7.0.7
-    created: "2025-09-12T18:10:11.338325-07:00"
+    created: "2025-09-12T18:31:40.856165-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -129,7 +129,7 @@ entries:
   superset:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-09-12T18:10:11.351201-07:00"
+    created: "2025-09-12T18:31:40.871086-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -141,7 +141,7 @@ entries:
       version: 17.3.17
     description: Apache Superset is a modern, enterprise-ready business intelligence
       web application
-    digest: 1ca7c7be4b31180b7a2c8c0b7557dea4f116d87f81d0351281b0d8c93b85d056
+    digest: 0f196742858b84124cf88912a7632d20e161690f0f4cd39d5fff96c2cf1b54ec
     maintainers:
     - email: data-infra-eng@chanzuckerberg.com
       name: CZI Central Technology, Data Infrastructure
@@ -152,7 +152,7 @@ entries:
     version: 0.13.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:10:11.363558-07:00"
+    created: "2025-09-12T18:31:40.884172-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -175,7 +175,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:10:11.359889-07:00"
+    created: "2025-09-12T18:31:40.88055-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -198,7 +198,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:10:11.354639-07:00"
+    created: "2025-09-12T18:31:40.874529-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -219,4 +219,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-12T18:10:11.318466-07:00"
+generated: "2025-09-12T18:31:40.835966-07:00"
