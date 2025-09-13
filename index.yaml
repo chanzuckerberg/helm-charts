@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
-    created: "2025-09-12T18:31:40.844556-07:00"
+    created: "2025-09-13T14:51:29.828351-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -26,7 +26,7 @@ entries:
     - amundsen-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2025-09-12T18:31:40.8425-07:00"
+    created: "2025-09-13T14:51:29.822839-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -52,7 +52,7 @@ entries:
   aws-calico:
   - apiVersion: v1
     appVersion: 3.13.4
-    created: "2025-09-12T18:31:40.845216-07:00"
+    created: "2025-09-13T14:51:29.829138-07:00"
     description: A Helm chart for installing Calico on AWS
     digest: 50be5204421f4a925bb692f7f2e2662a1d318f422e30b76fa1563207e031a572
     icon: https://www.projectcalico.org/wp-content/uploads/2019/09/Calico_Logo_Large_Calico.png
@@ -65,7 +65,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 15.1.0
-    created: "2025-09-12T18:31:40.852269-07:00"
+    created: "2025-09-13T14:51:29.838814-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -75,7 +75,7 @@ entries:
     description: PostgreSQL (Postgres) is an open source object-relational database
       known for reliability and data integrity. ACID-compliant, it supports foreign
       keys, joins, views, triggers and stored procedures.
-    digest: 1a2deb66d7daffaef0ce8b26489f3f901d3e6823e2b94cc5c1839d5f266e2ca3
+    digest: b73fbc19d2afee51d41074fae91722c4b0f9352e263c694b5d780184d79bfa6a
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     keywords:
@@ -95,12 +95,46 @@ entries:
     urls:
     - postgresql-12.1.6.tgz
     version: 12.1.6
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 14.2.0
+    created: "2025-09-13T14:51:29.83241-07:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.x.x
+    description: PostgreSQL (Postgres) is an open source object-relational database
+      known for reliability and data integrity. ACID-compliant, it supports foreign
+      keys, joins, views, triggers and stored procedures.
+    digest: be29cb8d8d17a940f7cab65293d9ca9be483d146da44db3e45ebdbb123350bad
+    home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/bitnami-docker-postgresql
+    - https://www.postgresql.org/
+    urls:
+    - postgresql-11.1.22.tgz
+    version: 11.1.22
   redis:
   - annotations:
       category: Database
     apiVersion: v2
     appVersion: 7.0.7
-    created: "2025-09-12T18:31:40.856165-07:00"
+    created: "2025-09-13T14:51:29.848742-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -110,7 +144,7 @@ entries:
     description: Redis(R) is an open source, advanced key-value store. It is often
       referred to as a data structure server since keys can contain strings, hashes,
       lists, sets and sorted sets.
-    digest: 893f11d0fb713ab4ab9d02acc32177c48189967ca9dd1bff92d31f055ef82e30
+    digest: 7f307636ff91273bf2ee291a00dd96c83f2253a37841f74a01fbf567c61dafb9
     home: https://github.com/bitnami/charts/tree/main/bitnami/redis
     icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
     keywords:
@@ -126,10 +160,42 @@ entries:
     urls:
     - redis-17.3.17.tgz
     version: 17.3.17
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 6.2.6
+    created: "2025-09-13T14:51:29.844852-07:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Redis(TM) is an open source, advanced key-value store. It is often
+      referred to as a data structure server since keys can contain strings, hashes,
+      lists, sets and sorted sets.
+    digest: 83fe135c3f3364aecbfe4342f1a27ea0620916bd4568e52b615f155cf75a55eb
+    home: https://github.com/bitnami/charts/tree/master/bitnami/redis
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: redis
+    sources:
+    - https://github.com/bitnami/bitnami-docker-redis
+    urls:
+    - redis-16.3.1.tgz
+    version: 16.3.1
   superset:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-09-12T18:31:40.871086-07:00"
+    created: "2025-09-13T14:51:29.860516-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -152,7 +218,7 @@ entries:
     version: 0.13.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:31:40.884172-07:00"
+    created: "2025-09-13T14:51:29.873515-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -175,7 +241,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:31:40.88055-07:00"
+    created: "2025-09-13T14:51:29.870036-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -198,7 +264,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-12T18:31:40.874529-07:00"
+    created: "2025-09-13T14:51:29.864011-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -219,4 +285,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-12T18:31:40.835966-07:00"
+generated: "2025-09-13T14:51:29.819998-07:00"
