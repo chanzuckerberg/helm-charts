@@ -2,31 +2,7 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
-    created: "2022-01-11T19:33:29.072220449Z"
-    dependencies:
-    - condition: elasticsearch.enabled
-      name: elasticsearch
-      repository: https://charts.helm.sh/stable/
-      version: 1.32.0
-    description: Amundsen is a metadata driven application for improving the productivity
-      of data analysts, data scientists and engineers when interacting with data.
-    digest: dc029b57ad0621b1f915c85c783236c88f8d64103e7a4669128704222f5a34b3
-    home: https://github.com/amundsen-io/amundsen
-    icon: https://github.com/amundsen-io/amundsen/blob/master/docs/img/logos/amundsen_logo_on_light.svg
-    keywords:
-    - metadata
-    - data
-    maintainers:
-    - email: amundsen-tsc@lists.lfai.foundation
-      name: Amundsen TSC
-    name: amundsen
-    sources:
-    - https://github.com/amundsen-io/amundsen
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/amundsen-2.2.0/amundsen-2.2.0.tgz
-    version: 2.2.0
-  - apiVersion: v1
-    created: "2021-04-22T11:10:16.85288-07:00"
+    created: "2025-09-12T11:36:09.719488-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -50,7 +26,7 @@ entries:
     - amundsen-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2021-04-22T11:10:16.850112-07:00"
+    created: "2025-09-12T11:36:09.717674-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -76,7 +52,7 @@ entries:
   aws-calico:
   - apiVersion: v1
     appVersion: 3.13.4
-    created: "2021-04-22T11:10:16.854513-07:00"
+    created: "2025-09-12T11:36:09.720016-07:00"
     description: A Helm chart for installing Calico on AWS
     digest: 50be5204421f4a925bb692f7f2e2662a1d318f422e30b76fa1563207e031a572
     icon: https://www.projectcalico.org/wp-content/uploads/2019/09/Calico_Logo_Large_Calico.png
@@ -84,340 +60,68 @@ entries:
     urls:
     - aws-calico-0.3.2.tgz
     version: 0.3.2
-  solar:
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-22T19:30:36.133797743Z"
-    description: A Helm chart for Solar (Tonic Textual)
-    digest: e98b138ed69b695e1c3b960e488cbf46bddddc8dcfc9f48fc891d76af953947d
-    name: solar
-    type: application
+  postgresql:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 15.1.0
+    created: "2025-09-12T11:36:09.725593-07:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: PostgreSQL (Postgres) is an open source object-relational database
+      known for reliability and data integrity. ACID-compliant, it supports foreign
+      keys, joins, views, triggers and stored procedures.
+    digest: 1a2deb66d7daffaef0ce8b26489f3f901d3e6823e2b94cc5c1839d5f266e2ca3
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - name: Bitnami
+      url: https://github.com/bitnami/charts
+    name: postgresql
+    sources:
+    - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
+    - https://www.postgresql.org/
     urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/solar-1.0.2/solar-1.0.2.tgz
-    version: 1.0.2
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-21T22:43:20.548307015Z"
-    description: A Helm chart for Solar (Tonic Textual)
-    digest: 60c95aec7cbe915a959ecfc0fd6fe2fdc5186b2887203b85c90fca957573e1d0
-    name: solar
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/solar-1.0.1/solar-1.0.1.tgz
-    version: 1.0.1
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-16T00:44:23.561689175Z"
-    description: A Helm chart for Solar
-    digest: 1a6ab79c6b13e705b108c335d3bf71766bf357370b3aa322d3d97c5ae87b85d7
-    name: solar
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/solar-1.0.0/solar-1.0.0.tgz
-    version: 1.0.0
+    - postgresql-12.1.6.tgz
+    version: 12.1.6
   superset:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2023-07-05T18:11:40.447788325Z"
+    created: "2025-09-12T11:36:09.736887-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://chanzuckerberg.github.io/helm-charts
       version: 12.1.6
     - condition: redis.enabled
       name: redis
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://chanzuckerberg.github.io/helm-charts
       version: 17.3.17
     description: Apache Superset is a modern, enterprise-ready business intelligence
       web application
-    digest: 7300b29c12134ec469c6d697ce6c2c8ee5d4649811ddaaa806626b4e267b8e43
+    digest: 1ca7c7be4b31180b7a2c8c0b7557dea4f116d87f81d0351281b0d8c93b85d056
     maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
+    - email: data-infra-eng@chanzuckerberg.com
+      name: CZI Central Technology, Data Infrastructure
       url: https://github.com/chanzuckerberg/helm-charts
     name: superset
     urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.13.0/superset-0.13.0.tgz
+    - superset-0.13.0.tgz
     version: 0.13.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-03-27T19:12:57.461478717Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: bc7897a16740dd1bfafe559d6869c023a09f508729cdec5efd6860db1f520827
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.12.1/superset-0.12.1.tgz
-    version: 0.12.1
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-03-27T19:00:33.296556548Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 738c0323570dcd841293f641399675a06e1cf7bdb1eb47030b92a86980710862
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.12.0/superset-0.12.0.tgz
-    version: 0.12.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-02-17T05:51:42.755426911Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: d638cd4bd6bdf9b88a44f8556c75b5258e3dbde7e468c2fabc0e2cae30bf14bb
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.11.0/superset-0.11.0.tgz
-    version: 0.11.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-02-10T19:28:26.090827064Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 89c1886b79bf5b922dd6552f687bfb2456c74578cbceda1c9607f8de712ecedd
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.10.0/superset-0.10.0.tgz
-    version: 0.10.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-02-07T02:22:07.399945193Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 881a44f424dcf800da2780023269d5f03976e2e942cbb8dacdcaf978a1db6f46
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.9.0/superset-0.9.0.tgz
-    version: 0.9.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-01-12T22:21:26.106047352Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 2e61193f68be3884e6aa174467dc5eba48c58eb42fb046d1683895915db104d2
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.8.2/superset-0.8.2.tgz
-    version: 0.8.2
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-01-17T22:04:09.416604158Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 4b066cc6452b6652391fd3257669cf1c0f1e5c68d50477b3b1b6d05e079cf29a
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.8.0/superset-0.8.0.tgz
-    version: 0.8.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2023-01-12T22:23:18.077150005Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.1.6
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 17.3.17
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 0b7d31c2bee133c1fdcf917848f983c01ec9924d8dde3801ab29602b7376ed6a
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.7.0/superset-0.7.0.tgz
-    version: 0.7.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2022-09-27T23:16:45.647473101Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.22
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 16.3.1
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 5c3e76144fac3ec252d8a1ce44e41a4ac95e71012b534599ba474a4be4848952
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.6.0/superset-0.6.0.tgz
-    version: 0.6.0
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2022-01-11T19:11:16.451095728Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.2.0
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.3.3
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 187062d4c920c226a59599d6ae6936913724e4ae7564d7ac853dd016d25c243e
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.5.7/superset-0.5.7.tgz
-    version: 0.5.7
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2022-01-06T18:30:35.900036Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.2.0
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.3.3
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 661a1272f48af999fe7794d0487b8a3322aed47b018afeb644dc60363277674b
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.5.6/superset-0.5.6.tgz
-    version: 0.5.6
-  - apiVersion: v2
-    appVersion: "1.0"
-    created: "2022-01-05T23:37:35.065891071Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.2.0
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 12.3.3
-    description: Apache Superset is a modern, enterprise-ready business intelligence
-      web application
-    digest: 5e73de5d5ea98816fd1d70382f78bb29689505f59c1ab2174418f948cb71a761
-    maintainers:
-    - email: adoami@chanzuckerberg.com
-      name: Allison Doami
-      url: https://github.com/chanzuckerberg/helm-charts
-    name: superset
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/superset-0.5.5/superset-0.5.5.tgz
-    version: 0.5.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.870002-07:00"
+    created: "2025-09-12T11:36:09.751031-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -440,7 +144,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.865285-07:00"
+    created: "2025-09-12T11:36:09.74652-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -463,7 +167,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-04-22T11:10:16.860146-07:00"
+    created: "2025-09-12T11:36:09.740957-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -484,226 +188,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-  textual:
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-07-15T16:52:12.237427335Z"
-    description: A Helm chart for Textual
-    digest: 66034a30162145d631f45bc8969ff5fe6af17e0418934b87222817c77b429e6a
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.3.2/textual-1.3.2.tgz
-    version: 1.3.2
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-05-31T21:31:46.880875722Z"
-    description: A Helm chart for Textual
-    digest: 2c704a649f2d07e71e2256afeb67fb6ba22e87f94c41ac429d4aad120b9349aa
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.3.1/textual-1.3.1.tgz
-    version: 1.3.1
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-05-30T20:33:39.483482174Z"
-    description: A Helm chart for Textual
-    digest: a87fea517d3f5689ebb0297bf2a4553100b458afb5ab8867b86c5b08a5ef1767
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.3.0/textual-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-05-29T16:52:30.337357377Z"
-    description: A Helm chart for Textual
-    digest: fa0625e013fd0c946eaa658f1149b119ce0d502adb5c26919b808b9bdf101386
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.2.0/textual-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-03-04T21:13:55.21041848Z"
-    description: A Helm chart for Textual
-    digest: 42acd1a3ff393c9829252a9c6701a87ea9c60df9095d6c2f08c663c80791188d
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.1.3/textual-1.1.3.tgz
-    version: 1.1.3
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-29T21:16:50.968010848Z"
-    description: A Helm chart for Textual
-    digest: 906b1e2bd74673697f10ea8d04a713274581d71e5caf90bec28c110ec146cfd2
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.1.2/textual-1.1.2.tgz
-    version: 1.1.2
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-27T19:54:06.903280236Z"
-    description: A Helm chart for Textual
-    digest: d2d52ee9f6f7dacdec95356710dbe033faf78d354c4ca58ecaad269d9322e671
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.1.1/textual-1.1.1.tgz
-    version: 1.1.1
-  - apiVersion: v2
-    appVersion: "8"
-    created: "2024-02-27T00:10:39.975622251Z"
-    description: A Helm chart for Textual
-    digest: 41e1b0f35b4813464e139be4765e9584ed5f3793e2eba27c899d7c62db5d8187
-    name: textual
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/textual-1.1.0/textual-1.1.0.tgz
-    version: 1.1.0
-  tonic:
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2024-06-17T21:50:09.190022903Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 5e5b72013dd16bb11fcb671732bbeab76f1e8f0af3f789297bda445190c5b190
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.2.0/tonic-2.2.0.tgz
-    version: 2.2.0
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2024-05-24T22:53:13.563535806Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 97f0ccd5c5b7311dc95481a3780c31a445696d6f9b8f97af5ed92fd95d94bcea
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.1.3/tonic-2.1.3.tgz
-    version: 2.1.3
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2024-05-24T22:04:28.969300933Z"
-    description: A Helm chart for Tonic and EKS
-    digest: fdaeb5f7236a2dc2c9ee88198321fd84e698cc9a69bef51703239a5a2bc50b7c
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.1.2/tonic-2.1.2.tgz
-    version: 2.1.2
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2024-05-24T20:04:04.521776026Z"
-    description: A Helm chart for Tonic and EKS
-    digest: ab2ac367c290b85e64e467cad9a5ff31528ff1f7c57cb26230dcff64a362ca30
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.1.1/tonic-2.1.1.tgz
-    version: 2.1.1
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2023-08-29T22:14:13.428008316Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 14ce60c01ba21f9ffacdebb8a652cfcb7cb0b6900e689a4dadfa374dc80229df
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.1.0/tonic-2.1.0.tgz
-    version: 2.1.0
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2023-08-28T21:17:28.918954331Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 1ac1e0ec918cfdddf197022a5086c4ad022e809109bb4da7b29ffdd17fd896d2
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-2.0.0/tonic-2.0.0.tgz
-    version: 2.0.0
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2023-08-22T19:57:03.188793019Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 2d4275329365be2fa57a838549c57cdabf257c49f0704dcbae27ab39bfd4471d
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.1.0/tonic-1.1.0.tgz
-    version: 1.1.0
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-11-15T22:31:30.948988669Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 10d1a66da71e94c056c772fb5583f2590fc32c51c0e230eb4e0562fbb6392645
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.8/tonic-1.0.8.tgz
-    version: 1.0.8
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-10-12T18:03:29.534167221Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 21930a1e6c622306a71d81d839b9e0e3c8c7ab70eca14516264ab0dc33692e94
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.7/tonic-1.0.7.tgz
-    version: 1.0.7
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-09-02T14:02:10.447414991Z"
-    description: A Helm chart for Tonic and EKS
-    digest: efdf34c478a53b84adfd5631df871f1ce6c558f481278aa7c3cd40f008845181
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.6/tonic-1.0.6.tgz
-    version: 1.0.6
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-09-02T13:54:06.065209087Z"
-    description: A Helm chart for Tonic and EKS
-    digest: 5a7c89abd03a58784e8bd12daecf7ba31eaba4b9eb3a0cc72e784ea5436f585c
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.5/tonic-1.0.5.tgz
-    version: 1.0.5
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-09-02T13:43:10.39573096Z"
-    description: A Helm chart for Tonic and EKS
-    digest: a464310897a871c0d8a51c60afb703681b9a792260263ed8432e99786f363392
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.4/tonic-1.0.4.tgz
-    version: 1.0.4
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-09-02T13:32:20.476561604Z"
-    description: A Helm chart for Tonic and EKS
-    digest: d6c5a1a6544df31b3e0318e6e30162c3a8d74b8e026febd8e0cba5eadce3b12c
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.3/tonic-1.0.3.tgz
-    version: 1.0.3
-  - apiVersion: v2
-    appVersion: "130"
-    created: "2022-08-02T21:54:10.42446849Z"
-    description: A Helm chart for Tonic and EKS
-    digest: ae19c607300fc4293d790286814edc3fe03ce6ac76e72f7de6a80e1f5a97bcbb
-    name: tonic
-    type: application
-    urls:
-    - https://github.com/chanzuckerberg/helm-charts/releases/download/tonic-1.0.2/tonic-1.0.2.tgz
-    version: 1.0.2
-generated: "2024-07-15T16:52:12.237548784Z"
+generated: "2025-09-12T11:36:09.711039-07:00"
