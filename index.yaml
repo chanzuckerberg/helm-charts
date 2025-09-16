@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   amundsen:
   - apiVersion: v1
-    created: "2025-09-13T14:51:29.828351-07:00"
+    created: "2025-09-16T09:31:44.149101-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -26,7 +26,7 @@ entries:
     - amundsen-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2025-09-13T14:51:29.822839-07:00"
+    created: "2025-09-16T09:31:44.146987-07:00"
     dependencies:
     - condition: elasticsearch.enabled
       name: elasticsearch
@@ -52,7 +52,7 @@ entries:
   aws-calico:
   - apiVersion: v1
     appVersion: 3.13.4
-    created: "2025-09-13T14:51:29.829138-07:00"
+    created: "2025-09-16T09:31:44.149754-07:00"
     description: A Helm chart for installing Calico on AWS
     digest: 50be5204421f4a925bb692f7f2e2662a1d318f422e30b76fa1563207e031a572
     icon: https://www.projectcalico.org/wp-content/uploads/2019/09/Calico_Logo_Large_Calico.png
@@ -65,7 +65,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 15.1.0
-    created: "2025-09-13T14:51:29.838814-07:00"
+    created: "2025-09-16T09:31:44.16194-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -75,7 +75,7 @@ entries:
     description: PostgreSQL (Postgres) is an open source object-relational database
       known for reliability and data integrity. ACID-compliant, it supports foreign
       keys, joins, views, triggers and stored procedures.
-    digest: b73fbc19d2afee51d41074fae91722c4b0f9352e263c694b5d780184d79bfa6a
+    digest: b1b2a146e07de199bb2a11e296a996c0a8b3632d3dcf18e35a39b99aa163eb7f
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     keywords:
@@ -99,7 +99,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 14.2.0
-    created: "2025-09-13T14:51:29.83241-07:00"
+    created: "2025-09-16T09:31:44.158024-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -134,7 +134,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 7.0.7
-    created: "2025-09-13T14:51:29.848742-07:00"
+    created: "2025-09-16T09:31:44.173673-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -164,7 +164,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.2.6
-    created: "2025-09-13T14:51:29.844852-07:00"
+    created: "2025-09-16T09:31:44.167351-07:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -195,7 +195,7 @@ entries:
   superset:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-09-13T14:51:29.860516-07:00"
+    created: "2025-09-16T09:31:44.183344-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -207,7 +207,30 @@ entries:
       version: 17.3.17
     description: Apache Superset is a modern, enterprise-ready business intelligence
       web application
-    digest: 0f196742858b84124cf88912a7632d20e161690f0f4cd39d5fff96c2cf1b54ec
+    digest: 40b7136649b9c02dfa7c70dd0e9080cd0399f1dc5b94c0e43635d5b0786e2f7a
+    maintainers:
+    - email: data-infra-eng@chanzuckerberg.com
+      name: CZI Central Technology, Data Infrastructure
+      url: https://github.com/chanzuckerberg/helm-charts
+    name: superset
+    urls:
+    - superset-0.13.0-bitnamilegacy.tgz
+    version: 0.13.0
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-16T09:31:44.195697-07:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://chanzuckerberg.github.io/helm-charts
+      version: 12.1.6
+    - condition: redis.enabled
+      name: redis
+      repository: https://chanzuckerberg.github.io/helm-charts
+      version: 17.3.17
+    description: Apache Superset is a modern, enterprise-ready business intelligence
+      web application
+    digest: 40b7136649b9c02dfa7c70dd0e9080cd0399f1dc5b94c0e43635d5b0786e2f7a
     maintainers:
     - email: data-infra-eng@chanzuckerberg.com
       name: CZI Central Technology, Data Infrastructure
@@ -218,7 +241,7 @@ entries:
     version: 0.13.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-13T14:51:29.873515-07:00"
+    created: "2025-09-16T09:31:44.210437-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -241,7 +264,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-13T14:51:29.870036-07:00"
+    created: "2025-09-16T09:31:44.204263-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -264,7 +287,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2025-09-13T14:51:29.864011-07:00"
+    created: "2025-09-16T09:31:44.199415-07:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -285,4 +308,4 @@ entries:
     urls:
     - superset-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-13T14:51:29.819998-07:00"
+generated: "2025-09-16T09:31:44.142352-07:00"
