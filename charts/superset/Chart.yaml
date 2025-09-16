@@ -22,7 +22,7 @@ maintainers:
   - name: CZI Central Technology, Data Infrastructure
     email: data-infra-eng@chanzuckerberg.com
     url: https://github.com/chanzuckerberg/helm-charts
-version: 0.13.0
+version: 0.13.0+bitnamilegacy
 dependencies:
   - name: postgresql
     version: 12.1.6
